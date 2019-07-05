@@ -80,16 +80,16 @@ function(assert_no_version_h target)
 
   if (DEFINED ENV{VERBOSE})
     add_custom_target("${target_name}"
-      COMMAND "${CMAKE_COMMAND}" -DFILE="${CMAKE_SOURCE_DIR}/versions.h"
-                               -P "${CMAKE_SOURCE_DIR}/cmake/AssertFileDoesntExist.cmake"
+      COMMAND "${CMAKE_COMMAND}" -DFILE="${PROJECT_SOURCE_DIR}/versions.h"
+                               -P "${PROJECT_SOURCE_DIR}/cmake/AssertFileDoesntExist.cmake"
       COMMAND echo
-      "${CMAKE_COMMAND}" -P "${CMAKE_SOURCE_DIR}/cmake/AssertFileDoesntExist.cmake"
-                                 -DFILE="${CMAKE_SOURCE_DIR}/versions.h"
+      "${CMAKE_COMMAND}" -P "${PROJECT_SOURCE_DIR}/cmake/AssertFileDoesntExist.cmake"
+                                 -DFILE="${PROJECT_SOURCE_DIR}/versions.h"
       COMMENT "Check old build system wasn't used in source dir")
   else()
     add_custom_target("${target_name}"
-      COMMAND "${CMAKE_COMMAND}" -DFILE="${CMAKE_SOURCE_DIR}/versions.h"
-                               -P "${CMAKE_SOURCE_DIR}/cmake/AssertFileDoesntExist.cmake"
+      COMMAND "${CMAKE_COMMAND}" -DFILE="${PROJECT_SOURCE_DIR}/versions.h"
+                               -P "${PROJECT_SOURCE_DIR}/cmake/AssertFileDoesntExist.cmake"
       COMMENT "Check old build system wasn't used in source dir")
   endif()
 
@@ -105,10 +105,10 @@ function(strip_debug_symbols target)
   endif()
   get_target_property(target_type ${target} TYPE)
   if(target_type STREQUAL "EXECUTABLE")
-    set(path ${CMAKE_BINARY_DIR}/packages/bin)
+    set(path ${PROJECT_BINARY_DIR}/packages/bin)
     set(is_exec ON)
   else()
-    set(path ${CMAKE_BINARY_DIR}/packages/lib)
+    set(path ${PROJECT_BINARY_DIR}/packages/lib)
   endif()
   file(MAKE_DIRECTORY "${path}")
   set(strip_command strip)

@@ -42,8 +42,8 @@ file(MAKE_DIRECTORY ${GOPATH}
 set(go_options_file ${GO_DEST}/src/fdb/generated.go)
 
 set(go_env GOPATH=${GOPATH}
-  C_INCLUDE_PATH=${CMAKE_BINARY_DIR}/bindings/c/foundationdb:${CMAKE_SOURCE_DIR}/bindings/c
-  CGO_LDFLAGS=-L${CMAKE_BINARY_DIR}/lib)
+  C_INCLUDE_PATH=${PROJECT_BINARY_DIR}/bindings/c/foundationdb:${PROJECT_SOURCE_DIR}/bindings/c
+  CGO_LDFLAGS=-L${PROJECT_BINARY_DIR}/lib)
 
 foreach(src_file IN LISTS SRCS)
   set(dest_file ${GO_DEST}/${src_file})
@@ -59,10 +59,10 @@ endforeach()
 add_custom_target(copy_go_sources DEPENDS ${SRCS_OUT})
 add_custom_command(OUTPUT ${go_options_file}
   COMMAND ${GO_EXECUTABLE} run ${CMAKE_CURRENT_SOURCE_DIR}/src/_util/translate_fdb_options.go
-          -in ${CMAKE_SOURCE_DIR}/fdbclient/vexillographer/fdb.options
+          -in ${PROJECT_SOURCE_DIR}/fdbclient/vexillographer/fdb.options
           -out ${go_options_file}
   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/_util/translate_fdb_options.go
-          ${CMAKE_SOURCE_DIR}/fdbclient/vexillographer/fdb.options
+          ${PROJECT_SOURCE_DIR}/fdbclient/vexillographer/fdb.options
   COMMENT "Generate FDBOptions for GO")
 add_custom_target(go_options_file DEPENDS ${go_options_file})
 add_dependencies(go_options_file copy_go_sources)

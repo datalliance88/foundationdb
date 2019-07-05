@@ -194,8 +194,8 @@ endif()
 
 
 set(CPACK_PACKAGE_CHECKSUM SHA256)
-configure_file("${CMAKE_SOURCE_DIR}/cmake/CPackConfig.cmake" "${CMAKE_BINARY_DIR}/packaging/CPackConfig.cmake")
-set(CPACK_PROJECT_CONFIG_FILE "${CMAKE_BINARY_DIR}/packaging/CPackConfig.cmake")
+configure_file("${PROJECT_SOURCE_DIR}/cmake/CPackConfig.cmake" "${PROJECT_BINARY_DIR}/packaging/CPackConfig.cmake")
+set(CPACK_PROJECT_CONFIG_FILE "${PROJECT_BINARY_DIR}/packaging/CPackConfig.cmake")
 
 ################################################################################
 # Version information
@@ -218,11 +218,11 @@ set(CPACK_PACKAGE_VERSION_MAJOR ${FDB_MAJOR})
 set(CPACK_PACKAGE_VERSION_MINOR ${FDB_MINOR})
 set(CPACK_PACKAGE_VERSION_PATCH ${FDB_PATCH})
 set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${FDB_VERSION}-${CPACK_SYSTEM_NAME}")
-set(CPACK_OUTPUT_FILE_PREFIX "${CMAKE_BINARY_DIR}/packages")
-set(CPACK_PACKAGE_DESCRIPTION_FILE ${CMAKE_SOURCE_DIR}/packaging/description)
+set(CPACK_OUTPUT_FILE_PREFIX "${PROJECT_BINARY_DIR}/packages")
+set(CPACK_PACKAGE_DESCRIPTION_FILE ${PROJECT_SOURCE_DIR}/packaging/description)
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY
   "FoundationDB is a scalable, fault-tolerant, ordered key-value store with full ACID transactions.")
-set(CPACK_PACKAGE_ICON ${CMAKE_SOURCE_DIR}/packaging/foundationdb.ico)
+set(CPACK_PACKAGE_ICON ${PROJECT_SOURCE_DIR}/packaging/foundationdb.ico)
 set(CPACK_PACKAGE_CONTACT "The FoundationDB Community")
 
 set(CPACK_COMPONENT_SERVER-EL6_DEPENDS clients-el6)
@@ -245,7 +245,7 @@ set(CPACK_COMPONENT_CLIENTS-PM_DISPLAY_NAME "foundationdb-clients")
 
 
 # MacOS needs a file exiension for the LICENSE file
-configure_file(${CMAKE_SOURCE_DIR}/LICENSE ${CMAKE_BINARY_DIR}/License.txt COPYONLY)
+configure_file(${PROJECT_SOURCE_DIR}/LICENSE ${PROJECT_BINARY_DIR}/License.txt COPYONLY)
 
 ################################################################################
 # Filename of packages
@@ -279,10 +279,10 @@ set(CPACK_RPM_CLIENTS-EL7_DEBUGINFO_FILE_NAME "${clients-filename}.el7-debuginfo
 set(CPACK_RPM_SERVER-EL6_DEBUGINFO_FILE_NAME "${server-filename}.el6-debuginfo.x86_64.rpm")
 set(CPACK_RPM_SERVER-EL7_DEBUGINFO_FILE_NAME "${server-filename}.el7-debuginfo.x86_64.rpm")
 
-file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/packaging/emptydir")
-fdb_install(DIRECTORY "${CMAKE_BINARY_DIR}/packaging/emptydir/" DESTINATION data COMPONENT server)
-fdb_install(DIRECTORY "${CMAKE_BINARY_DIR}/packaging/emptydir/" DESTINATION log COMPONENT server)
-fdb_install(DIRECTORY "${CMAKE_BINARY_DIR}/packaging/emptydir/" DESTINATION etc COMPONENT clients)
+file(MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/packaging/emptydir")
+fdb_install(DIRECTORY "${PROJECT_BINARY_DIR}/packaging/emptydir/" DESTINATION data COMPONENT server)
+fdb_install(DIRECTORY "${PROJECT_BINARY_DIR}/packaging/emptydir/" DESTINATION log COMPONENT server)
+fdb_install(DIRECTORY "${PROJECT_BINARY_DIR}/packaging/emptydir/" DESTINATION etc COMPONENT clients)
 
 set(CPACK_RPM_SERVER-EL6_USER_FILELIST
   "%config(noreplace) /etc/foundationdb/foundationdb.conf"
@@ -309,29 +309,29 @@ set(CPACK_RPM_DEBUGINFO_PACKAGE ON)
 set(CPACK_RPM_COMPONENT_INSTALL ON)
 
 set(CPACK_RPM_CLIENTS-EL6_PRE_INSTALL_SCRIPT_FILE
-  ${CMAKE_SOURCE_DIR}/packaging/rpm/scripts/preclients.sh)
+  ${PROJECT_SOURCE_DIR}/packaging/rpm/scripts/preclients.sh)
 set(CPACK_RPM_clients-el7_PRE_INSTALL_SCRIPT_FILE
-  ${CMAKE_SOURCE_DIR}/packaging/rpm/scripts/preclients.sh)
+  ${PROJECT_SOURCE_DIR}/packaging/rpm/scripts/preclients.sh)
 
 set(CPACK_RPM_CLIENTS-EL6_POST_INSTALL_SCRIPT_FILE
-  ${CMAKE_SOURCE_DIR}/packaging/rpm/scripts/postclients.sh)
+  ${PROJECT_SOURCE_DIR}/packaging/rpm/scripts/postclients.sh)
 set(CPACK_RPM_CLIENTS-EL7_POST_INSTALL_SCRIPT_FILE
-  ${CMAKE_SOURCE_DIR}/packaging/rpm/scripts/postclients.sh)
+  ${PROJECT_SOURCE_DIR}/packaging/rpm/scripts/postclients.sh)
 
 set(CPACK_RPM_SERVER-EL6_PRE_INSTALL_SCRIPT_FILE
-  ${CMAKE_SOURCE_DIR}/packaging/rpm/scripts/preserver.sh)
+  ${PROJECT_SOURCE_DIR}/packaging/rpm/scripts/preserver.sh)
 set(CPACK_RPM_SERVER-EL7_PRE_INSTALL_SCRIPT_FILE
-  ${CMAKE_SOURCE_DIR}/packaging/rpm/scripts/preserver.sh)
+  ${PROJECT_SOURCE_DIR}/packaging/rpm/scripts/preserver.sh)
 
 set(CPACK_RPM_SERVER-EL6_POST_INSTALL_SCRIPT_FILE
-  ${CMAKE_SOURCE_DIR}/packaging/rpm/scripts/postserver-el6.sh)
+  ${PROJECT_SOURCE_DIR}/packaging/rpm/scripts/postserver-el6.sh)
 set(CPACK_RPM_SERVER-EL7_POST_INSTALL_SCRIPT_FILE
-  ${CMAKE_SOURCE_DIR}/packaging/rpm/scripts/postserver.sh)
+  ${PROJECT_SOURCE_DIR}/packaging/rpm/scripts/postserver.sh)
 
 set(CPACK_RPM_SERVER-EL6_PRE_UNINSTALL_SCRIPT_FILE
-  ${CMAKE_SOURCE_DIR}/packaging/rpm/scripts/preunserver.sh)
+  ${PROJECT_SOURCE_DIR}/packaging/rpm/scripts/preunserver.sh)
 set(CPACK_RPM_SERVER-EL7_PRE_UNINSTALL_SCRIPT_FILE
-  ${CMAKE_SOURCE_DIR}/packaging/rpm/scripts/preunserver.sh)
+  ${PROJECT_SOURCE_DIR}/packaging/rpm/scripts/preunserver.sh)
 
 set(CPACK_RPM_SERVER-EL6_PACKAGE_REQUIRES
   "foundationdb-clients = ${FDB_MAJOR}.${FDB_MINOR}.${FDB_PATCH}")
@@ -361,23 +361,23 @@ set(CPACK_DEBIAN_SERVER-DEB_PACKAGE_RECOMMENDS "python (>= 2.6)")
 set(CPACK_DEBIAN_CLIENTS-DEB_PACKAGE_DEPENDS "adduser, libc6 (>= 2.12)")
 set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://www.foundationdb.org")
 set(CPACK_DEBIAN_CLIENTS-DEB_PACKAGE_CONTROL_EXTRA
-  ${CMAKE_SOURCE_DIR}/packaging/deb/DEBIAN-foundationdb-clients/postinst)
+  ${PROJECT_SOURCE_DIR}/packaging/deb/DEBIAN-foundationdb-clients/postinst)
 set(CPACK_DEBIAN_SERVER-DEB_PACKAGE_CONTROL_EXTRA
-  ${CMAKE_SOURCE_DIR}/packaging/deb/DEBIAN-foundationdb-server/conffiles
-  ${CMAKE_SOURCE_DIR}/packaging/deb/DEBIAN-foundationdb-server/preinst
-  ${CMAKE_SOURCE_DIR}/packaging/deb/DEBIAN-foundationdb-server/postinst
-  ${CMAKE_SOURCE_DIR}/packaging/deb/DEBIAN-foundationdb-server/prerm
-  ${CMAKE_SOURCE_DIR}/packaging/deb/DEBIAN-foundationdb-server/postrm)
+  ${PROJECT_SOURCE_DIR}/packaging/deb/DEBIAN-foundationdb-server/conffiles
+  ${PROJECT_SOURCE_DIR}/packaging/deb/DEBIAN-foundationdb-server/preinst
+  ${PROJECT_SOURCE_DIR}/packaging/deb/DEBIAN-foundationdb-server/postinst
+  ${PROJECT_SOURCE_DIR}/packaging/deb/DEBIAN-foundationdb-server/prerm
+  ${PROJECT_SOURCE_DIR}/packaging/deb/DEBIAN-foundationdb-server/postrm)
 
 ################################################################################
 # MacOS configuration
 ################################################################################
 
 if(APPLE)
-  install(PROGRAMS ${CMAKE_SOURCE_DIR}/packaging/osx/uninstall-FoundationDB.sh
+  install(PROGRAMS ${PROJECT_SOURCE_DIR}/packaging/osx/uninstall-FoundationDB.sh
     DESTINATION "usr/local/foundationdb"
     COMPONENT clients-pm)
-  install(FILES ${CMAKE_SOURCE_DIR}/packaging/osx/com.foundationdb.fdbmonitor.plist
+  install(FILES ${PROJECT_SOURCE_DIR}/packaging/osx/com.foundationdb.fdbmonitor.plist
     DESTINATION "Library/LaunchDaemons"
     COMPONENT server-pm)
 endif()
@@ -400,32 +400,32 @@ set(CLUSTER_DESCRIPTION1 ${description1} CACHE STRING "Cluster description")
 set(CLUSTER_DESCRIPTION2 ${description2} CACHE STRING "Cluster description")
 
 if(NOT WIN32)
-  install(FILES ${CMAKE_SOURCE_DIR}/packaging/osx/foundationdb.conf.new
+  install(FILES ${PROJECT_SOURCE_DIR}/packaging/osx/foundationdb.conf.new
     DESTINATION "usr/local/etc"
     COMPONENT server-pm)
-  fdb_install(FILES ${CMAKE_SOURCE_DIR}/packaging/foundationdb.conf
+  fdb_install(FILES ${PROJECT_SOURCE_DIR}/packaging/foundationdb.conf
     DESTINATION etc
     COMPONENT server)
-  install(FILES ${CMAKE_SOURCE_DIR}/packaging/argparse.py
+  install(FILES ${PROJECT_SOURCE_DIR}/packaging/argparse.py
     DESTINATION "usr/lib/foundationdb"
     COMPONENT server-el6)
-  install(FILES ${CMAKE_SOURCE_DIR}/packaging/make_public.py
+  install(FILES ${PROJECT_SOURCE_DIR}/packaging/make_public.py
     DESTINATION "usr/lib/foundationdb"
     COMPONENT server-el6)
-  install(FILES ${CMAKE_SOURCE_DIR}/packaging/argparse.py
+  install(FILES ${PROJECT_SOURCE_DIR}/packaging/argparse.py
     DESTINATION "usr/lib/foundationdb"
     COMPONENT server-deb)
-  install(FILES ${CMAKE_SOURCE_DIR}/packaging/make_public.py
+  install(FILES ${PROJECT_SOURCE_DIR}/packaging/make_public.py
     DESTINATION "usr/lib/foundationdb"
     COMPONENT server-deb)
-  install(FILES ${CMAKE_SOURCE_DIR}/packaging/rpm/foundationdb.service
+  install(FILES ${PROJECT_SOURCE_DIR}/packaging/rpm/foundationdb.service
     DESTINATION "lib/systemd/system"
     COMPONENT server-el7)
-  install(PROGRAMS ${CMAKE_SOURCE_DIR}/packaging/rpm/foundationdb-init
+  install(PROGRAMS ${PROJECT_SOURCE_DIR}/packaging/rpm/foundationdb-init
     DESTINATION "etc/rc.d/init.d"
     RENAME "foundationdb"
     COMPONENT server-el6)
-  install(PROGRAMS ${CMAKE_SOURCE_DIR}/packaging/deb/foundationdb-init
+  install(PROGRAMS ${PROJECT_SOURCE_DIR}/packaging/deb/foundationdb-init
     DESTINATION "etc/init.d"
     RENAME "foundationdb"
     COMPONENT server-deb)

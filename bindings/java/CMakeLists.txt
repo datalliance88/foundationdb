@@ -135,14 +135,14 @@ if(APPLE)
   set_target_properties(fdb_java PROPERTIES SUFFIX ".jnilib")
 endif()
 set_target_properties(java_workloads PROPERTIES
-  LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/share/foundationdb")
+  LIBRARY_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/share/foundationdb")
 target_link_libraries(java_workloads PUBLIC fdb_c ${JNI_LIBRARIES})
 target_include_directories(java_workloads PUBLIC ${JNI_INCLUDE_DIRS})
 
 set(CMAKE_JAVA_COMPILE_FLAGS "-source" "1.8" "-target" "1.8")
 set(CMAKE_JNI_TARGET TRUE)
 set(JAR_VERSION "${FDB_MAJOR}.${FDB_MINOR}.${FDB_REVISION}")
-add_jar(fdb-java ${JAVA_BINDING_SRCS} ${GENERATED_JAVA_FILES} ${CMAKE_SOURCE_DIR}/LICENSE
+add_jar(fdb-java ${JAVA_BINDING_SRCS} ${GENERATED_JAVA_FILES} ${PROJECT_SOURCE_DIR}/LICENSE
   OUTPUT_DIR ${PROJECT_BINARY_DIR}/lib VERSION ${CMAKE_PROJECT_VERSION})
 add_dependencies(fdb-java fdb_java_options fdb_java)
 add_jar(foundationdb-tests SOURCES ${JAVA_TESTS_SRCS} INCLUDE_JARS fdb-java)
@@ -158,7 +158,7 @@ if(NOT OPEN_FOR_IDE)
   set(FAT_JAR_BINARIES "NOTFOUND" CACHE STRING
     "Path of a directory structure with libraries to include in fat jar (a lib directory)")
 
-  set(jar_destination ${CMAKE_BINARY_DIR}/packages)
+  set(jar_destination ${PROJECT_BINARY_DIR}/packages)
   set(unpack_dir ${CMAKE_CURRENT_BINARY_DIR}/fat_jar)
   file(MAKE_DIRECTORY ${jar_destination})
   file(MAKE_DIRECTORY ${unpack_dir})
@@ -172,7 +172,7 @@ if(NOT OPEN_FOR_IDE)
   add_custom_target(unpack_jar DEPENDS ${unpack_dir}/META-INF/MANIFEST.MF)
   add_dependencies(unpack_jar fdb-java)
   add_custom_command(OUTPUT ${unpack_dir}/LICENSE
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/LICENSE ${unpack_dir}
+    COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_SOURCE_DIR}/LICENSE ${unpack_dir}
     COMMENT "copy license")
   add_custom_target(copy_license DEPENDS ${unpack_dir}/LICENSE)
   add_dependencies(unpack_jar copy_license)

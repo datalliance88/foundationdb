@@ -46,7 +46,7 @@ set(out_files "${out_files};${options_file}")
 
 # Create sdist
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/setup.py.cmake ${CMAKE_CURRENT_BINARY_DIR}/setup.py)
-configure_file(${CMAKE_SOURCE_DIR}/LICENSE ${CMAKE_CURRENT_BINARY_DIR}/LICENSE COPYONLY)
+configure_file(${PROJECT_SOURCE_DIR}/LICENSE ${CMAKE_CURRENT_BINARY_DIR}/LICENSE COPYONLY)
 find_program(pycodestyle pycodestyle)
 if (pycodestyle)
   add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/check_py_code_style
@@ -60,7 +60,7 @@ else()
   add_custom_target(fdb_python_check COMMAND ${CMAKE_COMMAND} -E echo "Skipped Python style check! Missing: pycodestyle")
 endif()
 set(package_file_name foundationdb-${FDB_VERSION}.tar.gz)
-set(package_file ${CMAKE_BINARY_DIR}/packages/${package_file_name})
+set(package_file ${PROJECT_BINARY_DIR}/packages/${package_file_name})
 add_custom_command(OUTPUT ${package_file}
   COMMAND $<TARGET_FILE:Python::Interpreter> setup.py sdist --formats=gztar &&
           ${CMAKE_COMMAND} -E copy dist/${package_file_name} ${package_file}

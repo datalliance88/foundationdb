@@ -89,7 +89,7 @@ if(GEM_EXECUTABLE)
   set(WITH_RUBY ON)
 endif()
 
-file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/packages)
+file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/packages)
 add_custom_target(packages)
 
 function(print_components)

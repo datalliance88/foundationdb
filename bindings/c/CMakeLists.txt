@@ -86,7 +86,7 @@ else()
   add_library(c_workloads SHARED ${c_workloads_srcs})
 endif()
 set_target_properties(c_workloads PROPERTIES
-  LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/share/foundationdb")
+  LIBRARY_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/share/foundationdb")
 target_link_libraries(c_workloads PUBLIC fdb_c)
 
 # TODO: re-enable once the old vcxproj-based build system is removed.
@@ -111,7 +111,7 @@ fdb_install(
 fdb_install(
   FILES foundationdb/fdb_c.h
   ${CMAKE_CURRENT_BINARY_DIR}/foundationdb/fdb_c_options.g.h
-  ${CMAKE_SOURCE_DIR}/fdbclient/vexillographer/fdb.options
+  ${PROJECT_SOURCE_DIR}/fdbclient/vexillographer/fdb.options
   DESTINATION include
   DESTINATION_SUFFIX /foundationdb
   COMPONENT clients)

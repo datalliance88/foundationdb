@@ -188,16 +188,16 @@ endif()
 # process compile commands for IDE
 ################################################################################
 
-if (CMAKE_EXPORT_COMPILE_COMMANDS)
-  add_custom_command(
-	OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json
-	COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/build/gen_compile_db.py
-	ARGS -b ${CMAKE_CURRENT_BINARY_DIR} -s ${CMAKE_CURRENT_SOURCE_DIR} -o ${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json ${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json
-	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/build/gen_compile_db.py ${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json
-	COMMENT "Build compile commands for IDE"
-	)
-  add_custom_target(processed_compile_commands ALL DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json ${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json)
-endif()
+#if (CMAKE_EXPORT_COMPILE_COMMANDS)
+#  add_custom_command(
+#	OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json
+#	COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/build/gen_compile_db.py
+#	ARGS -b ${CMAKE_CURRENT_BINARY_DIR} -s ${CMAKE_CURRENT_SOURCE_DIR} -o ${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json ${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json
+#	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/build/gen_compile_db.py ${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json
+#	COMMENT "Build compile commands for IDE"
+#	)
+#  add_custom_target(processed_compile_commands ALL DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json ${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json)
+#endif()
 
 ################################################################################
 # Inform user which components we are going to build

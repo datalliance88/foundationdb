@@ -36,14 +36,14 @@ function(vexillographer_compile)
   if(WIN32)
     add_custom_command(
       OUTPUT ${VX_OUTPUT}
-      COMMAND $<TARGET_FILE:vexillographer> ${CMAKE_SOURCE_DIR}/fdbclient/vexillographer/fdb.options ${VX_LANG} ${VX_OUT}
-      DEPENDS ${CMAKE_SOURCE_DIR}/fdbclient/vexillographer/fdb.options vexillographer
+      COMMAND $<TARGET_FILE:vexillographer> ${PROJECT_SOURCE_DIR}/fdbclient/vexillographer/fdb.options ${VX_LANG} ${VX_OUT}
+      DEPENDS ${PROJECT_SOURCE_DIR}/fdbclient/vexillographer/fdb.options vexillographer
       COMMENT "Generate FDBOptions ${VX_LANG} files")
   else()
     add_custom_command(
       OUTPUT ${VX_OUTPUT}
-      COMMAND ${MONO_EXECUTABLE} ${VEXILLOGRAPHER_EXE} ${CMAKE_SOURCE_DIR}/fdbclient/vexillographer/fdb.options ${VX_LANG} ${VX_OUT}
-      DEPENDS ${CMAKE_SOURCE_DIR}/fdbclient/vexillographer/fdb.options vexillographer
+      COMMAND ${MONO_EXECUTABLE} ${VEXILLOGRAPHER_EXE} ${PROJECT_SOURCE_DIR}/fdbclient/vexillographer/fdb.options ${VX_LANG} ${VX_OUT}
+      DEPENDS ${PROJECT_SOURCE_DIR}/fdbclient/vexillographer/fdb.options vexillographer
       COMMENT "Generate FDBOptions ${VX_LANG} files")
   endif()
   if(VX_ALL)

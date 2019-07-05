@@ -8,23 +8,23 @@ if(UNIX AND NOT APPLE)
 endif()
 # FIXME: This include directory is an ugly hack. We probably want to fix this
 # as soon as we get rid of the old build system
-target_include_directories(fdbmonitor PRIVATE ${CMAKE_BINARY_DIR}/fdbclient)
+target_include_directories(fdbmonitor PRIVATE ${PROJECT_BINARY_DIR}/fdbclient)
 
 fdb_install(TARGETS fdbmonitor DESTINATION fdbmonitor COMPONENT server)
 
 # Create a local sandbox for quick manual testing without simulator
-file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/sandbox/data)
-file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/sandbox/logs)
-configure_file(${CMAKE_SOURCE_DIR}/cmake/Sandbox.conf.cmake
-  ${CMAKE_BINARY_DIR}/sandbox/foundationdb.conf)
+file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/sandbox/data)
+file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/sandbox/logs)
+configure_file(${PROJECT_SOURCE_DIR}/cmake/Sandbox.conf.cmake
+  ${PROJECT_BINARY_DIR}/sandbox/foundationdb.conf)
 
 # this is not portable on Windows - but fdbmonitor isn't built there anyways...
 add_custom_target(clean_sandbox
-  COMMAND rm -rf ${CMAKE_BINARY_DIR}/sandbox/data/* && rm -rf ${CMAKE_BINARY_DIR}/sandbox/logs/*
+  COMMAND rm -rf ${PROJECT_BINARY_DIR}/sandbox/data/* && rm -rf ${PROJECT_BINARY_DIR}/sandbox/logs/*
   COMMENT "Cleaning existing sandbox")
 
 add_custom_target(start_sandbox
-  COMMAND ${CMAKE_BINARY_DIR}/bin/fdbmonitor --conffile ${CMAKE_BINARY_DIR}/sandbox/foundationdb.conf
-                                             --lockfile ${CMAKE_BINARY_DIR}/sandbox/fdbmonitor.lock)
+  COMMAND ${PROJECT_BINARY_DIR}/bin/fdbmonitor --conffile ${PROJECT_BINARY_DIR}/sandbox/foundationdb.conf
+                                             --lockfile ${PROJECT_BINARY_DIR}/sandbox/fdbmonitor.lock)
 
 add_dependencies(start_sandbox fdbmonitor fdbserver)

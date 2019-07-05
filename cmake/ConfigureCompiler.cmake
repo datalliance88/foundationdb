@@ -35,7 +35,7 @@ if(FDB_RELEASE)
   add_compile_options(-DFDB_RELEASE)
 endif()
 
-include_directories(${CMAKE_SOURCE_DIR})
+include_directories(${PROJECT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 if (NOT OPEN_FOR_IDE)
   add_definitions(-DNO_INTELLISENSE)

@@ -58,7 +58,7 @@ endfunction()
 message(STATUS "Add html target")
 add_documentation_target(GENERATOR html)
 
-set(tar_file ${CMAKE_BINARY_DIR}/packages/${CMAKE_PROJECT_NAME}-docs-${FDB_VERSION}.tar.gz)
+set(tar_file ${PROJECT_BINARY_DIR}/packages/${CMAKE_PROJECT_NAME}-docs-${FDB_VERSION}.tar.gz)
 add_custom_command(
   OUTPUT ${tar_file}
   COMMAND ${CMAKE_COMMAND} -E tar czf ${tar_file} .

@@ -17,7 +17,7 @@ find_program(OLD_FDBSERVER_BINARY
 if(OLD_FDBSERVER_BINARY)
   message(STATUS "Use old fdb at ${OLD_FDBSERVER_BINARY}")
 else()
-  set(fdbserver_location ${CMAKE_BINARY_DIR}/bin/fdbserver)
+  set(fdbserver_location ${PROJECT_BINARY_DIR}/bin/fdbserver)
   set(OLD_FDBSERVER_BINARY ${fdbserver_location} CACHE FILEPATH "Old fdbserver binary" FORCE)
   message(WARNING "\
 No old fdbserver binary found - using ${fdbserver_location} \

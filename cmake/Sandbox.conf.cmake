@@ -12,17 +12,17 @@ restart_delay = 10
 # initial_restart_delay = 0
 # restart_backoff = 60
 # restart_delay_reset_interval = 60
-cluster_file = ${CMAKE_BINARY_DIR}/fdb.cluster
+cluster_file = ${PROJECT_BINARY_DIR}/fdb.cluster
 # delete_envvars =
 # kill_on_configuration_change = true
 
 ## Default parameters for individual fdbserver processes
 [fdbserver]
-command = ${CMAKE_BINARY_DIR}/bin/fdbserver
+command = ${PROJECT_BINARY_DIR}/bin/fdbserver
 public_address = auto:$ID
 listen_address = public
-datadir = ${CMAKE_BINARY_DIR}/sandbox/data/$ID
-logdir = ${CMAKE_BINARY_DIR}/sandbox/logs
+datadir = ${PROJECT_BINARY_DIR}/sandbox/data/$ID
+logdir = ${PROJECT_BINARY_DIR}/sandbox/logs
 # logsize = 10MiB
 # maxlogssize = 100MiB
 # machine_id =

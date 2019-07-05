@@ -30,9 +30,9 @@ if(NOT OPEN_FOR_IDE)
   endforeach()
 
   file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/packages)
-  file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/packages)
+  file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/packages)
   set(package_dir ${CMAKE_CURRENT_BINARY_DIR}/packages/fdb-flow-${CMAKE_PROJECT_VERSION})
-  set(tar_file ${CMAKE_BINARY_DIR}/packages/fdb-flow-${CMAKE_PROJECT_VERSION}.tar.gz)
+  set(tar_file ${PROJECT_BINARY_DIR}/packages/fdb-flow-${CMAKE_PROJECT_VERSION}.tar.gz)
   add_custom_command(OUTPUT ${tar_file}
     COMMAND
     ${CMAKE_COMMAND} -E make_directory ${package_dir} &&

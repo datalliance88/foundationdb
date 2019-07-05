@@ -5,7 +5,7 @@ vexillographer_compile(TARGET ruby_options LANG ruby
 configure_file(fdb.gemspec.cmake fdb.gemspec)
 
 set(gem_file fdb-${FDB_VERSION}.gem)
-set(gem_target ${CMAKE_BINARY_DIR}/packages/${gem_file})
+set(gem_target ${PROJECT_BINARY_DIR}/packages/${gem_file})
 add_custom_command(OUTPUT ${gem_target}
   COMMAND ${GEM_COMMAND} build fdb.gemspec &&
           ${CMAKE_COMMAND} -E copy ${gem_file} ${gem_target}
